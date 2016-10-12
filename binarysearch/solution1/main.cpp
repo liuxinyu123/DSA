@@ -15,11 +15,15 @@ int main()
 	print_array(arr,N);
 
 	int value = 0;
-	std::cout << "Please input a number: " ;
-	std::cin >> value;
-
-	std::cout << "The index of " << value << " in the array is : " << BinarySearch(arr,0,N,value);
-	std::cout << std::endl;
+	while(1)
+	{
+		std::cout << "Please input a number: " ;
+		std::cin >> value;
+		
+		std::cout << "The index of " << value << " in the array is : " << BinarySearch(arr,0,N,value);
+		std::cout << std::endl;
+	
+	}
 
 	return 0;
 }
