@@ -31,13 +31,13 @@ void MidToPost(char arr[],int len)
 
 		if(IsOperator(c))//如果是蒜子  按优先级比较
 		{
-			if(OperaterCompare(Top(s),c) >= 0)//符号栈中优先级大于等于c 则直接输出
+			while(OperaterCompare(Top(s),c) >= 0)//符号栈中优先级大于等于c 则直接输出
 			{
 				std::cout << Top(s) << " " ;
 				Pop(s);
 			}
 
-			else
+			if(OperaterCompare(Top(s),c) == -1)
 			{
 				Push(c,s);
 			}
