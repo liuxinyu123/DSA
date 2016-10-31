@@ -15,6 +15,15 @@ static int Max(int a,int b)
 	return (a > b)? a : b;
 }
 
+void MakeEmpty(AvlTree t)
+{
+	if(t)
+	{
+		MakeEmpty(t -> left);
+		MakeEmpty(t -> right);
+		free(t);
+	}
+}
 static int Height(Position p)
 {
 	if(!p)

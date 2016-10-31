@@ -19,6 +19,7 @@ int main(int argc,char **argv)
 	//std::cout << "After delete " << a << " ,MidOrder is: " ;
 	//MidOrder(Delete(a,t));
 	//std::cout << std::endl;
+	MakeEmpty(t);
 
 	return 0;
 }
