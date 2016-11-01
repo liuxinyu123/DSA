@@ -110,7 +110,7 @@ Position Splay(ElemType value,SplayTree t)
 
 	Position p = Find(value,t);//查找位置
 	
-	if(!p)
+	if(!p)//没找到
 		return t;
 
 	while()
