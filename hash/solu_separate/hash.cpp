@@ -4,19 +4,29 @@
 
 const int MinSize = 3;
 
-struct ListNode
-{
-	ElemType value;
-	Position next;
-};
 
-typedef Position List;
-
-struct HashTb
+int IsPrime(int num)
 {
-	int TableSize;
-	List *TheLists;
-};
+	for(int i = 2; i * i <= num; ++i)
+	{
+		if(num % i == 0)
+			return 0;
+	}
+
+	return 1;
+}
+
+int NextPrime(int num)
+{
+	while(!IsPrime(num))
+		num++;
+	return num;
+}
+
+int Hash(ElemType key,int size)
+{
+	return key % size;
+}
 
 HashTable InitializeTable(int size)
 {
@@ -35,7 +45,7 @@ HashTable InitializeTable(int size)
 	}
 
 	h -> TableSize = NextPrime(size);
-	h -> TheLists = (List*)malloc(sizeof(List) * H -> TableSize);
+	h -> TheLists = (List*)malloc(sizeof(List) * h -> TableSize);
 	
 	if(!h -> TheLists)
 	{
@@ -43,7 +53,7 @@ HashTable InitializeTable(int size)
 		return nullptr;
 	}
 	
-	for(int i = 0; i < TableSize; ++i)
+	for(int i = 0; i < h -> TableSize; ++i)
 	{
 		h -> TheLists[i] = (List)malloc(sizeof(struct ListNode));
 
@@ -65,7 +75,7 @@ Position Find(ElemType key,HashTable h)
 	List l = h -> TheLists[Hash(key,h -> TableSize)];
 	Position p = l -> next;
 
-	while(!p && p -> value != key)
+	while(p && p -> value != key)
 		p = p -> next;
 
 	return p;
@@ -97,4 +107,62 @@ void Insert(ElemType key,HashTable h)
 	}
 }
 
+void DestroyTable(HashTable h)
+{
+	for(int i = 0; i < h -> TableSize; ++i)
+	{
+		List l = h -> TheLists[i];
+		Position p = l -> next;
+		Position q = nullptr;
 
+		while(p)
+		{
+			q = p -> next;
+			
+			if(!q)
+			{
+				free(p);
+				p = nullptr;
+			}
+			
+			else
+			{
+				free(p);
+				p = q;
+			}
+		}
+	}
+
+	free(h -> TheLists);
+	free(h);
+}
+
+void Delete(ElemType key,HashTable h)
+{
+	List l = h -> TheLists[Hash(key,h -> TableSize)];
+	
+	Position p = l -> next;
+	
+	if(!p)
+		return;
+	if(p -> value == key)
+	{
+		free(p);
+		l -> next = nullptr;
+		return;
+	}
+
+	while(p -> next && p -> next -> value != key)
+		p = p -> next;
+
+	if(!p -> next)
+		return;
+	Position q = p -> next;
+	p -> next = q -> next;
+	free(q);	
+}
+
+ElemType Retrieve(Position p)
+{
+	return p -> value;
+}
