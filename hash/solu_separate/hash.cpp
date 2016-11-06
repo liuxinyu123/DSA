@@ -85,7 +85,7 @@ void Insert(ElemType key,HashTable h)
 {
 	Position p = Find(key,h);
 
-	if(!p)
+	if(!p)//没找到相同的
 	{
 		List l = h -> TheLists[Hash(key,h -> TableSize)];
 
@@ -118,18 +118,8 @@ void DestroyTable(HashTable h)
 		while(p)
 		{
 			q = p -> next;
-			
-			if(!q)
-			{
-				free(p);
-				p = nullptr;
-			}
-			
-			else
-			{
-				free(p);
-				p = q;
-			}
+			free(p);
+			p = q;	
 		}
 	}
 
@@ -141,28 +131,38 @@ void Delete(ElemType key,HashTable h)
 {
 	List l = h -> TheLists[Hash(key,h -> TableSize)];
 	
-	Position p = l -> next;
+	Position p = l;
 	
-	if(!p)
-		return;
-	if(p -> value == key)
-	{
-		free(p);
-		l -> next = nullptr;
-		return;
-	}
-
 	while(p -> next && p -> next -> value != key)
+	{
 		p = p -> next;
+	}	
 
 	if(!p -> next)
 		return;
+	
 	Position q = p -> next;
 	p -> next = q -> next;
-	free(q);	
+	free(q);
 }
 
 ElemType Retrieve(Position p)
 {
 	return p -> value;
+}
+
+void PrintHash(HashTable h)
+{
+	for(int i = 0; i < h -> TableSize; ++i)
+	{
+		List l = h -> TheLists[i];
+		Position p = l -> next;
+
+		while(p)
+		{
+			std::cout << p -> value << " ";
+			p = p -> next;
+		}
+		std::cout << std::endl;
+	}
 }

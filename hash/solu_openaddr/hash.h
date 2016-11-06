@@ -1,35 +1,37 @@
 #ifndef _HASH_H_
 #define _HASH_H_
 
-struct ListNode;
-typedef struct ListNode *Position;
-struct HashTb;
-typedef struct HashTb *HashTable;
+enum KindOfEntry {Legitimated,Empty,Removed};
 
+typedef unsigned int Index;
+typedef Index Position;
 typedef int ElemType;
 
-struct ListNode
+struct HashEntry
 {
 	ElemType value;
-	Position next;
+	enum KindOfEntry info;
 };
 
-typedef Position List;
+typedef HashEntry Cell;
 
 struct HashTb
 {
 	int TableSize;
-	List *TheLists;
+	Cell *TheCells;
 };
+
+typedef HashTb *HashTable;
 
 HashTable InitializeTable(int size);
 void DestroyTable(HashTable h);
 Position Find(ElemType key,HashTable h);
 void Insert(ElemType key,HashTable h);
 void Delete(ElemType key,HashTable h);
-ElemType Retrieve(Position p);
+ElemType Retrieve(Index idx,HashTable h);
 int IsPrime(int num);
 int NextPrime(int num);
-int Hash(ElemType key,int size);
+Index Hash(ElemType key,int size);
 void PrintHash(HashTable h);
+
 #endif
