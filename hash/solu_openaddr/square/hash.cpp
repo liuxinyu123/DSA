@@ -87,24 +87,19 @@ HashTable InitializeTable(int size)
 Index Find(ElemType key,HashTable h)
 {
 	Index idx = Hash(key,h -> TableSize);
-	
-	while(h -> TheCells[idx].info != Empty)
-	{
-		if(h -> TheCells[idx].value == key)
-		{
-			if(h -> TheCells[idx].info == Legitimated)
-				return idx;
-			else
-			{
-				std::cout << key << " is removed!" << std::endl;
-				return 0;
-			}
-		}
+	int t = idx;
+	int i = 0;
 
-		++idx;
+	while(h -> TheCells[idx].info != Empty && h -> TheCells[idx].value != key)
+	{
+		++i;
+		idx = (t + i * i) % h -> TableSize;
 	}
-		std::cout << "Can not find " << key << std::endl;
+
+	if(h -> TheCells[idx].info == Empty)
 		return 0;
+
+	return idx;
 }
 
 void Insert(ElemType key,HashTable h)
@@ -113,25 +108,17 @@ void Insert(ElemType key,HashTable h)
 	Index t = idx;
 	int i = 0;
 
-	while(h -> TheCells[idx].info != Empty)
+	while(h -> TheCells[idx].info != Empty && h -> TheCells[idx].value != key)
 	{
 		if(h -> TheCells[idx].info == Removed)
 		{
-			h -> TheCells[idx].value = key;
 			h -> TheCells[idx].info = Legitimated;
-			return;
-		}
-
-		else//Legitimated
-		{
-			if(h -> TheCells[idx].value == key)
-				return;
-			else
-			{
-				++i;					
-				idx = ((t + i * i) % h -> TableSize);
-			}
-		}
+			h -> TheCells[idx].value = key;
+		}	
+		++i;
+		idx = (t + i * i);
+		if(idx > h -> TableSize)
+			idx = idx - h -> TableSize;
 	}
 
 	h -> TheCells[idx].value = key;

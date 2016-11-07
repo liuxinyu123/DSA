@@ -9,7 +9,7 @@ int main(int argc,char **argv)
 	Insert(5,h);
 	Insert(6,h);
 	Insert(16,h);
-	//Insert(14,h);
+	Insert(14,h);
 	Insert(7,h);
 	Insert(27,h);
 	std::cout << "The HashTable is: " << std::endl;
