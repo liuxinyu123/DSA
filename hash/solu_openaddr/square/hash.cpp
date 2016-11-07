@@ -29,22 +29,26 @@ Index Hash(ElemType key,int size)
 
 void PrintHash(HashTable h)
 {
-	for(int i = 0; i < h -> TableSize; ++i)
+	for(int i = 1; i <= h -> TableSize; ++i)
 	{
-		if(h -> TheCells[i].info == Empty)
-			std::cout << ":" << std::endl;
-		else
+		if(h -> TheCells[i].info == Legitimated)
 		{
-			std::cout << h -> TheCells[i].value << std::endl;
+			std::cout << i << ":" << h -> TheCells[i].value << std::endl;
 		}
+		else
+			std::cout << i << ":" << std::endl;
 	}
 }
 
 ElemType Retrieve(Index idx,HashTable h)
 {
-	if(h -> TheCells[idx].info == Legitimated)
+	if(!idx)
+		return static_cast<ElemType> (0);
+	else if(h -> TheCells[idx].info == Legitimated)
 		return h -> TheCells[idx].value;
-	return static_cast<ElemType> (-1);
+	else
+		return static_cast<ElemType> (0);
+
 }
 
 HashTable InitializeTable(int size)
@@ -106,6 +110,8 @@ Index Find(ElemType key,HashTable h)
 void Insert(ElemType key,HashTable h)
 {
 	Index idx = Hash(key,h -> TableSize);
+	Index t = idx;
+	int i = 0;
 
 	while(h -> TheCells[idx].info != Empty)
 	{
@@ -116,12 +122,15 @@ void Insert(ElemType key,HashTable h)
 			return;
 		}
 
-		else
+		else//Legitimated
 		{
 			if(h -> TheCells[idx].value == key)
 				return;
 			else
-				idx = (++idx) % h -> TableSize;
+			{
+				++i;					
+				idx = ((t + i * i) % h -> TableSize);
+			}
 		}
 	}
 
