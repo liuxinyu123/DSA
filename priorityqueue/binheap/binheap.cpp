@@ -124,11 +124,11 @@ void PrintQueue(PriorityQueue q)
 	if(!IsEmpty(q))
 	{
 		std::cout << std::endl;
-		int level = 1;
+		int level = 2;
 		int i = 1;
 		while(i <= q -> size)
 		{
-			if(i > level)
+			if(i == level)
 			{
 				std::cout << std::endl;
 				level *= 2;

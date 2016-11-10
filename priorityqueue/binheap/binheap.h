@@ -6,7 +6,7 @@ typedef HeapStruct *PriorityQueue;
 typedef int ElemType;
 
 PriorityQueue InitializeQueue(int cap);
-void Destroy(PriorityQueue q);
+void DestroyQueue(PriorityQueue q);
 void MakeEmpty(PriorityQueue q);
 void Insert(ElemType value,PriorityQueue q);
 ElemType DeleteMin(PriorityQueue q);
