@@ -2,7 +2,7 @@
 #define _BINHEAP_H_
 
 struct HeapStruct;
-struct HeapStruct *Position;
+typedef int Position;
 typedef HeapStruct *PriorityQueue;
 typedef int ElemType;
 

@@ -106,8 +106,10 @@ ElemType DeleteMin(PriorityQueue q)
 		ElemType last = q -> Elements[q -> size--];
 
 		int i = 2;
-		while(i <= q -> size && q -> Elements[i] <= last)
+		while(i <= q -> size && Min(q -> Elements[i],q -> Elements[i + 1]) < last)
 		{
+			if(q -> Elements[i] > q -> Elements[i + 1])
+				++i;
 			q -> Elements[i / 2] = q -> Elements[i];
 			i *= 2;
 		}
@@ -164,33 +166,38 @@ void IncreaseKey(Position p,ElemType offset,PriorityQueue q)
 {
 	if(q)
 	{
-		ElemType t = q -> Elements[p] + offset;
+		q -> Elements[p] += offset;
+		ElemType t = q -> Elements[p];
 
-		int i = 2 * q;
-		while(i <= q -> size)
+		int i = 2 * p;
+
+		while(i < q -> size && t > Min(q -> Elements[i],q -> Elements[i + 1]))
 		{
-			while(t > Min(q -> Elements[i],q -> Elements[i + 1]))
-			{
-				q -> Elements[i] = t;
+			if(q -> Elements[i] > q -> Elements[i + 1])//挑选出最小的
+				++i;
+			q -> Elements[i / 2] = q -> Elements[i];
 
-			}
+
+			
+			i *= 2;
 		}
+		
+		q -> Elements[i / 2] = t;
 	}
 }
+
 void DecreaseKey(Position p,ElemType offset,PriorityQueue q)
 {
 	if(q)
 	{
-		ElemType t = q -> Elements[p] - offset;
+		q -> Elements[p] -= offset;
+		ElemType t = q -> Elements[p];
 		
 		int i = p / 2;
 		while(q -> Elements[i] > t)
 		{
-			q -> Elements[i] = t;
-			q -> Elements[p] = q -> Elements[i];
+			Swap(&q -> Elements[i],&t);
 			i /= 2;
-			p /= 2;
 		}
-		
 	}
 }

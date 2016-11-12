@@ -19,6 +19,11 @@ struct HeapStruct
 	ElemType *Elements;
 };
 
+ElemType Min(ElemType l,ElemType r)
+{
+	return (l > r) ? r : l;
+}
+
 PriorityQueue InitializeQueue(int cap)
 {
 	if(cap < MinCapacity)
@@ -94,8 +99,10 @@ ElemType DeleteMin(PriorityQueue q)
 		ElemType last = q -> Elements[q -> size--];
 
 		int i = 2;
-		while(i <= q -> size && q -> Elements[i] <= last)
+		while(i <= q -> size && Min(q -> Elements[i],q ->Elements[i + 1]) < last)
 		{
+			if(q -> Elements[i] > q ->Elements[i + 1])//挑选最小的
+				++i;
 			q -> Elements[i / 2] = q -> Elements[i];
 			i *= 2;
 		}

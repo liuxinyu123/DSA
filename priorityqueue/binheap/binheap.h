@@ -14,4 +14,5 @@ ElemType FindMin(PriorityQueue q);
 int IsEmpty(PriorityQueue q);
 int IsFull(PriorityQueue q);
 void PrintQueue(PriorityQueue q);
+ElemType Min(ElemType l,ElemType r);
 #endif
