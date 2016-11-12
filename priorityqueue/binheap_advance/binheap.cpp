@@ -106,7 +106,7 @@ ElemType DeleteMin(PriorityQueue q)
 		ElemType last = q -> Elements[q -> size--];
 
 		int i = 2;
-		while(i <= q -> size && Min(q -> Elements[i],q -> Elements[i + 1]) < last)
+		while(i <= q -> size && (last > q -> Elements[i] || last > q -> Elements[i + 1]))
 		{
 			if(q -> Elements[i] > q -> Elements[i + 1])
 				++i;
@@ -171,14 +171,13 @@ void IncreaseKey(Position p,ElemType offset,PriorityQueue q)
 
 		int i = 2 * p;
 
-		while(i < q -> size && t > Min(q -> Elements[i],q -> Elements[i + 1]))
+		while(i < q -> size && (t > q -> Elements[i] || t > q -> Elements[i + 1]))
 		{
 			if(q -> Elements[i] > q -> Elements[i + 1])//挑选出最小的
 				++i;
+			
 			q -> Elements[i / 2] = q -> Elements[i];
 
-
-			
 			i *= 2;
 		}
 		
@@ -191,12 +190,11 @@ void DecreaseKey(Position p,ElemType offset,PriorityQueue q)
 	if(q)
 	{
 		q -> Elements[p] -= offset;
-		ElemType t = q -> Elements[p];
 		
-		int i = p / 2;
-		while(q -> Elements[i] > t)
+		int i = p;
+		while(i > 1 && q -> Elements[i] < q -> Elements[i / 2])
 		{
-			Swap(&q -> Elements[i],&t);
+			Swap(&q ->Elements[i / 2] ,&q -> Elements[i]);
 			i /= 2;
 		}
 	}

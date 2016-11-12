@@ -19,10 +19,14 @@ int main(int argc,char **argv)
 	PrintQueue(q);
 
 	std::cout << "The mininum is : " << FindMin(q) << std::endl;
-
+	
+	Insert(23,q);
+	PrintQueue(q);
 	IncreaseKey(1,30,q);
 	PrintQueue(q);
-
+	
+	DecreaseKey(4,7,q);
+	PrintQueue(q);
 	DestroyQueue(q);
 	return 0;
 }
