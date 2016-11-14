@@ -17,10 +17,11 @@ PriorityQueue InitializeQueue();
 ElemType FindMin(PriorityQueue q);
 int IsEmpty(PriorityQueue q);
 PriorityQueue Merge(PriorityQueue q1,PriorityQueue q2);
-
-#define Insert(value,q) ()
+PriorityQueue Merge1(PriorityQueue q1,PriorityQueue q2);
+#define Insert(value,q) (q = Insert1((value),q))
 PriorityQueue Insert1(ElemType value,PriorityQueue q);
 PriorityQueue DeleteMin(PriorityQueue q);
+void SwapChildren(PriorityQueue q);
 
 
 #endif
