@@ -19,9 +19,10 @@ int IsEmpty(PriorityQueue q);
 PriorityQueue Merge(PriorityQueue q1,PriorityQueue q2);
 PriorityQueue Merge1(PriorityQueue q1,PriorityQueue q2);
 #define Insert(value,q) (q = Insert1((value),q))
+#define DeleteMin(q) (q = DeleteMin1(q)) 
 PriorityQueue Insert1(ElemType value,PriorityQueue q);
-PriorityQueue DeleteMin(PriorityQueue q);
+PriorityQueue DeleteMin1(PriorityQueue q);
 void SwapChildren(PriorityQueue q);
-
+void PrintHeap(PriorityQueue q);
 
 #endif
