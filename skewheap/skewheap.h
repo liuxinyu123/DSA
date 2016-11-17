@@ -14,10 +14,11 @@ struct TreeNode
 
 typedef TreeNode *SkewHeap;
 
+SkewHeap InitializeHeap();
 ElemType FindMin(SkewHeap h);
-ElemType DeleteMin1(SkewHeap h);
+SkewHeap DeleteMin1(SkewHeap h);
 SkewHeap Insert1(ElemType value,SkewHeap h);
 SkewHeap Merge(SkewHeap h1,SkewHeap h2);
 SkewHeap Merge1(SkewHeap h1,SkewHeap h2);
-
+void PrintHeap(SkewHeap h);
 #endif
