@@ -2,13 +2,15 @@
 #define _BINQUEUE_H_
 
 typedef int ElemType;
-typedef BinNode *Position;
-typedef BinNode *BinTree;
+struct BinQueueNode;
+struct Collection;
+typedef BinQueueNode *Position;
+typedef BinQueueNode *BinTree;
 typedef Collection *BinQueue;
 
 extern const int MaxTrees;
 
-struct BinNode
+struct BinQueueNode
 {
 	ElemType Element;
 	Position LeftChild;
@@ -17,13 +19,14 @@ struct BinNode
 
 struct Collection 
 {
-	int Size;
-	BinTree TheTrees[MaxTrees]
-}
+	int size;
+	int current;
+	BinTree *forest;
+};
 
 BinQueue Merge(BinQueue t1,BinQueue t2);
 BinTree CombineTree(BinTree q1,BinTree q2);//合并同样大小二项树
-BinQueue InitializeBinQueue(int cap);
+BinQueue InitializeBinQueue(int sz);
 BinQueue Insert1(ElemType value,BinQueue q);
 BinQueue DeleteMin1(BinQueue q);
 

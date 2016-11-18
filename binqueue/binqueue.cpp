@@ -3,7 +3,7 @@
 #include <string>
 #include "binqueue.h"
 
-const int MaxTrees = 10;
+const int MaxCapacity = 20;
 
 void Error(std::string str)
 {
@@ -76,17 +76,17 @@ BinQueue Merge(BinQueue q1,BinQueue q2)
 
 }
 
-BinQueue InitializeBinQueue(int cap)
+BinQueue InitializeBinQueue(int sz)
 {
-	if(cap < 0)
+	if(sz < 0)
 	{
 		Error("The size could not be negative!");
 		return nullptr;
 	}
 
-	if(cap > MaxTrees)
+	if(sz > MaxCapacity)
 	{
-		Error("Exceed the maximun capacity!");
+		Error("Exceed the maximum capacity!");
 		return nullptr;
 	}
 
@@ -97,20 +97,21 @@ BinQueue InitializeBinQueue(int cap)
 		return nullptr;
 	}
 
-	q -> Size = cap;
-
-	q -> TheTrees = (BinTree*)malloc(sizeof(struct TreeNode) * cap);
+	q -> forest = (BinTree*)malloc(sizeof(struct TreeNode) * sz);
 	if(!q -> TheTrees)
 	{
 		Error("Memory alloc for TheTrees is failed!");
 		return nullptr;
 	}
 
-	for(int i = 0; i < cap; ++i)
+	for(int i = 0; i < sz; ++i)
 	{
 		q -> TheTrees[i] -> LeftChild = nullptr;
 		q -> TheTrees[i] -> NextSibling = nullptr;
 	}
+
+	q -> size = sz;
+	q -> current = 0;
 
 }
 
