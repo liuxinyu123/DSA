@@ -66,9 +66,55 @@ BinQueue Merge(BinQueue q1,BinQueue q2)
 				q2 -> TheTrees[i] = nullptr;
 				break;
 			case 7:
-				carry = CombineTree(t1,carry);
-				carry = CombineTree(t2,carry);
+				q1 -> TheTrees[i] = carry;
+				carry = CombineTree(t1,t2);
+				q2 -> TheTrees[i] = nullptr;
 		}
+
+		return q1;
 	}
 
+}
+
+BinQueue InitializeBinQueue(int cap)
+{
+	if(cap < 0)
+	{
+		Error("The size could not be negative!");
+		return nullptr;
+	}
+
+	if(cap > MaxTrees)
+	{
+		Error("Exceed the maximun capacity!");
+		return nullptr;
+	}
+
+	BinQueue q = (BinQueue)malloc(sizeof(struct Collection));
+	if(!q)
+	{
+		Error("Memory alloc for BinQueue is failed!");
+		return nullptr;
+	}
+
+	q -> Size = cap;
+
+	q -> TheTrees = (BinTree*)malloc(sizeof(struct TreeNode) * cap);
+	if(!q -> TheTrees)
+	{
+		Error("Memory alloc for TheTrees is failed!");
+		return nullptr;
+	}
+
+	for(int i = 0; i < cap; ++i)
+	{
+		q -> TheTrees[i] -> LeftChild = nullptr;
+		q -> TheTrees[i] -> NextSibling = nullptr;
+	}
+
+}
+
+BinQueue Insert1(ElemType value,BinQueue q)
+{
+	BinQueue t
 }
