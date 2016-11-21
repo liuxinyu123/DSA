@@ -8,7 +8,6 @@ typedef BinQueueNode *Position;
 typedef BinQueueNode *BinTree;
 typedef Collection *BinQueue;
 
-extern const int MaxTrees;
 
 struct BinQueueNode
 {

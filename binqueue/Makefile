@@ -1,11 +1,16 @@
-main : main.o binqueue.o
-	g++ -o main main.o binqueue.o
+CC = g++
+CXXFLAGS = -Wall -g
+objects = main.o binqueue.o
 
-main.o : main.cpp binqueue.h
-	g++ -c main.cpp
+target = binqueue
 
-binqueue.o : binqueue.h binqueue.cpp 
-	g++ -c binqueue.cpp
+$(target) : $(objects)
+	$(CC) -o $(target) $(objects)
 
-clean:
-	rm *.o main 
+main.o : binqueue.h
+binqueue.o : binqueue.h
+
+.PHONY : clean
+clean :
+	rm binqueue $(objects)
+

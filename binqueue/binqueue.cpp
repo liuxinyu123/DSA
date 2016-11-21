@@ -22,22 +22,22 @@ BinTree CombineTree(BinTree t1,BinTree t2)
 
 BinQueue Merge(BinQueue q1,BinQueue q2)
 {
-	if(q1 -> Size + q2 -> Size > MaxTrees)
+	if(q1 -> size + q2 -> size > MaxCapacity)
 	{
 		Error("Exceed capacity!");
 		return nullptr;
 	}	
 
-	q1 -> Size += q2 -> Size;
+	q1 -> size += q2 -> size;
 
 	BinTree t1 = nullptr;
 	BinTree t2 = nullptr;
 	BinTree carry = nullptr;
 
-	for(int i = 0,int j = 1;j < q1 -> Size; ++i,j *= 2)
+	for(int i = 0,j = 1;j < q1 -> size; ++i,j *= 2)
 	{
-		t1 = q1 -> TheTrees[i];
-		t2 = q2 -> TheTrees[i];
+		t1 = q1 -> forest[i];
+		t2 = q2 -> forest[i];
 		
 		switch(!!t1 + 2 * !!t2 + 4 * !!carry)
 		{
@@ -45,30 +45,30 @@ BinQueue Merge(BinQueue q1,BinQueue q2)
 			case 1://只有t1
 				break;
 			case 2://只有t2
-				q1 -> TheTrees[i] = t2;
-				q2 -> TheTrees[i] = nullptr;
+				q1 -> forest[i] = t2;
+				q2 -> forest[i] = nullptr;
 				break;
 			case 4://只有carry
-				q1 -> TheTrees[i] = carry;
+				q1 -> forest[i] = carry;
 				carry = nullptr;
 				break;
 			case 3://t1 t2
 				carry = CombineTree(t1,t2);
-				q1 -> TheTrees[i] = nullptr;
-				q2 -> TheTrees[i] = nullptr;
+				q1 -> forest[i] = nullptr;
+				q2 -> forest[i] = nullptr;
 				break;
 			case 5:
 				carry = CombineTree(t1,carry);
-				q1 -> TheTrees[i] = nullptr;
+				q1 -> forest[i] = nullptr;
 				break;
 			case 6:
 				carry = CombineTree(t2,carry);
-				q2 -> TheTrees[i] = nullptr;
+				q2 -> forest[i] = nullptr;
 				break;
 			case 7:
-				q1 -> TheTrees[i] = carry;
+				q1 -> forest[i] = carry;
 				carry = CombineTree(t1,t2);
-				q2 -> TheTrees[i] = nullptr;
+				q2 -> forest[i] = nullptr;
 		}
 
 		return q1;
@@ -97,25 +97,28 @@ BinQueue InitializeBinQueue(int sz)
 		return nullptr;
 	}
 
-	q -> forest = (BinTree*)malloc(sizeof(struct TreeNode) * sz);
-	if(!q -> TheTrees)
+	q -> forest = (BinTree*)malloc(sizeof(struct BinQueueNode) * sz);
+	if(!q -> forest)
 	{
-		Error("Memory alloc for TheTrees is failed!");
+		Error("Memory alloc for forest is failed!");
 		return nullptr;
 	}
 
 	for(int i = 0; i < sz; ++i)
 	{
-		q -> TheTrees[i] -> LeftChild = nullptr;
-		q -> TheTrees[i] -> NextSibling = nullptr;
+		q -> forest[i] -> LeftChild = nullptr;
+		q -> forest[i] -> NextSibling = nullptr;
 	}
 
 	q -> size = sz;
 	q -> current = 0;
-
+	
+	return q;
 }
 
 BinQueue Insert1(ElemType value,BinQueue q)
 {
-	BinQueue t
+	BinQueue t;
+
+	return q;
 }
