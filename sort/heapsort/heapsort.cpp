@@ -24,7 +24,6 @@ void MaxHeapFixdown(ElemType *arr,int i,int len)//在第i个节点进行调整
 		arr[i] = arr[j];
 		i = j;
 		j = 2 * i + 1;
-
 	}
 
 	arr[i] = temp;
@@ -36,7 +35,7 @@ void HeapSort(ElemType *arr,int len)
 	for(int i = len / 2; i >= 0; --i)
 		MaxHeapFixdown(arr,i,len);
 
-	for(int i = len - 1; i > 0; --i)
+	for(int i = len - 1; i >= 1; --i)
 	{
 		Swap(&arr[0],&arr[i]);
 		MaxHeapFixdown(arr,0,i);
